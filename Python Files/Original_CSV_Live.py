@@ -31,9 +31,11 @@ with open('jobs_dump_' + str(filename) + '.csv', 'w', newline='', encoding='utf-
     
     csvwriter = csv.writer(csvfile, dialect='excel')
     
-    csvwriter.writerow(['Title', 'Department', 'Employer', 'Salary', 'Closing Date'])
+    csvwriter.writerow(['Title', 'Department', 'Employer', 'Salary', 'Closing Date','URL'])
 
     while n < len(titles):
 
-        csvwriter.writerow([(titles[n].getText().strip()), (departments[n].getText().strip()), (employers[n].getText().strip()), (" ".join(salaries[n].getText().strip().replace("\n","").split())).replace('Salary:',''), (close_date[n].getText().strip()) ])
+        url = r'=HYPERLINK("https://www.jobs.ac.uk' + titles[n].get('href') + r'","link")'
+
+        csvwriter.writerow([(titles[n].getText().strip()), (departments[n].getText().strip()), (employers[n].getText().strip()), (" ".join(salaries[n].getText().strip().replace("\n","").split())).replace('Salary:',''), (close_date[n].getText().strip()), url ])
         n +=1
