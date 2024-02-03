@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # pip install --user requests
 # pip install --user beautifulsoup4
 
