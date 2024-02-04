@@ -1,3 +1,3 @@
 ## Jobs Web Scraping
 
-Uses requester and beautifulsoup Python libraries to scrape job data from (www.jobs.ac.uk)[www.jobs.ac.uk], exports certain fields to an Excel formatted csv, including a link to the job description.
+Uses requester and beautifulsoup Python libraries to scrape job data from www.jobs.ac.uk(www.jobs.ac.uk), exports certain fields to an Excel formatted csv, including a link to the job description.
