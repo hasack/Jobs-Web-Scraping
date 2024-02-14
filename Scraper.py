@@ -16,17 +16,21 @@ if os.path.exists('jobs_dump.csv'):
 else:
     print('File does not exist. File will be created shortly.')
 
+print()
+
 downloaded_file = requests.get("https://www.jobs.ac.uk/search/?sortOrder=1&pageSize=10000")
 print('Downloaded data from website.')
 
 parsed_file = bs4.BeautifulSoup(downloaded_file.text, 'html.parser')
-print('Parsed data from website.')
 
 titles = parsed_file.select('.j-search-result__text > a')
 departments = parsed_file.select('.j-search-result__department')
 employers = parsed_file.select('.j-search-result__employer')
 salaries = parsed_file.select('.j-search-result__info')
 close_date = parsed_file.select('.j-search-result__date--blue')
+
+print('Parsed data from website.')
+print()
 
 if len(titles) == len(departments) == len(employers) == len(salaries) == len(close_date):
     print(f'The website currently has {len(titles)} jobs listed.')
@@ -54,13 +58,12 @@ with open('jobs_dump.csv', 'a', newline='\n', encoding='utf-8') as csvfile:
             csvwriter.writerow([(titles[n].getText().strip()), (departments[n].getText().strip()), (employers[n].getText().strip()), (" ".join(salaries[n].getText().strip().replace("\n","").split())).replace('Salary:',''), (close_date[n].getText().strip()), url ])
             records_added +=1
 
-            print(titles[n].getText().strip())
-
             if records_added %1000 == 0:
                 print(f'Added {records_added} records.')
         n +=1
     
-print()
+    if records_added > 1000:
+        print()
 
 if records_added > 0:
     print(f'Updated - added {str(records_added)} records.')
